@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title Wbackup
+    = csrf_meta_tags
+
+    = stylesheet_link_tag    'application', media: 'all' 
+    = stylesheet_link_tag    "app/#{params[:controller].parameterize.underscore}/#{params[:action].parameterize.underscore}" if @css_local_pipeline
+        
+    = javascript_include_tag 'application' 
+    = javascript_include_tag "app/#{params[:controller].parameterize.underscore}/#{params[:action].parameterize.underscore}" if @jss_local_pipeline    
+
+
+  
+
+  body.container
+    p.notice
+    p.alert
+    
+    = yield
+
+    - if user_signed_in?
+        li
+          = link_to('Logout', destroy_user_session_path, :method => :delete)

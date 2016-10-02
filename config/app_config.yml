@@ -1,0 +1,10 @@
+common: &common_settings
+  recaptcha_public_key: ""
+  recaptcha_private_key: ""
+
+development: &development_settings
+
+
+test: &test_settings
+
+production: &production_settings

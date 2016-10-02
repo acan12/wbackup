@@ -1,0 +1,63 @@
+h1 dashboard backup [wbackup.com]
+
+.container
+  .row
+    .col-md-11
+      .panel.panel-default.panel-table
+        .panel-heading
+          .row
+            .col.col-xs-6
+              h3.panel-title
+              .p Path :
+              = link_to current_path, "#", {style: "cursor: pointer"}
+            .col.col-xs-6.text-right
+              button.btn.btn-sm.btn-primary.btn-create type="button"  Create New
+        .panel-body
+          table.table.table-striped.table-bordered.table-list
+            thead
+              tr
+                th
+                  em.fa.fa-cog
+                th.hidden-xs Name
+                th Modified
+                th Mime/Type
+                th Created
+                th Permission
+                th
+            tbody
+              - @data.each do |d|
+                tr
+                  td.hidden-xs= image_tag (d[:dirtype] ? "folder-icon" : "document-icon")
+                  td= d[:name]
+                  td= d[:mtime]
+                  td -
+                  td= d[:ctime]
+                  td= d[:permission]
+                  td align="center" 
+                    a.btn.btn-default
+                      em.fa.fa-pencil
+                    a.btn.btn-danger
+                      em.fa.fa-trash
+                    
+                    
+        .panel-footer
+          .row
+            .col.col-xs-4
+              | Page 1 of 5
+            .col.col-xs-8
+              ul.pagination.hidden-xs.pull-right
+                li
+                  a href="#"  1
+                li
+                  a href="#"  2
+                li
+                  a href="#"  3
+                li
+                  a href="#"  4
+                li
+                  a href="#"  5
+              ul.pagination.visible-xs.pull-right
+                li
+                  a href="#"  «
+                li
+                  a href="#"  »
