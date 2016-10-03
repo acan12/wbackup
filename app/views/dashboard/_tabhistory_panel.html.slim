@@ -1,0 +1,31 @@
+.content
+  br
+  table.table.table-striped.table-bordered.table-list
+    thead
+      tr
+        th
+          em.fa.fa-cog
+        th.hidden-xs Name
+        th Mime/Type
+        th Size                
+        th Change
+        th Modified                
+        th Permission
+        th Version
+        th Status        
+        th
+    tbody
+      - @data.each do |d|
+        tr
+          td.hidden-xs= image_tag (d[:dirtype] ? "folder-icon" : "document-icon")
+          td= link_to d[:name], "?p=#{d[:path]}"
+          td= d[:mtype]
+          td= d[:size]
+          td= d[:ctime]
+          td= d[:mtime]                  
+          td= d[:permission]
+          td= "1.1.0"
+          td New / Changed
+          td align="center" 
+            = link_to "Track", track_path(1), class: "btn btn-default"
+            

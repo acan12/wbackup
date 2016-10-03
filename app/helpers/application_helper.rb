@@ -1,10 +1,11 @@
 module ApplicationHelper
   
   def current_path
-    params[:p] ||= "/"
+    params[:p] ||= ""
   end
   
   def filedirname(w)
-    w.scan(/[\w-]+/i).last
+    w.split("/").last
   end
+  
 end

@@ -1,0 +1,37 @@
+.container
+  .row
+    .col-md-11
+      .panel.panel-default.panel-table
+        .panel-heading
+            h3= "Test Backup"
+
+        .panel-body
+          .row
+
+            .col-6.pull-right style="width: 150px;"
+              = form_tag("/backup") do
+                = hidden_field_tag 'path', ""
+                = submit_tag "Restore Your files", class: "btn btn-warning"
+              = render "layouts/partial/dropdown_profiles"
+
+          .tabbable-panel
+            .content
+
+                
+            .tabbable-line
+              ul.nav.nav-tabs
+                li
+                  a data-toggle="tab" href="#tab_default_1" 
+                    | Chart / Statistic
+                li.active
+                  a data-toggle="tab" href="#tab_default_2" 
+                    | Backup History 
+
+              .tab-content
+                #tab_default_1.tab-pane
+                  = render "dashboard/tabchart_panel"
+                #tab_default_2.tab-pane.active
+                  = render "dashboard/tabhistory_panel"                                  
+
+
+          

@@ -3,6 +3,9 @@ common: &common_settings
   recaptcha_private_key: ""
 
 development: &development_settings
+  backup_root_name: "Wbox"
+  backup_destination_path: "/Wbox/"
+  backup_name_pattern: "WB_u{uid}_{profile_name}_{yyyymmddHHMM}_v{version}" 
 
 
 test: &test_settings

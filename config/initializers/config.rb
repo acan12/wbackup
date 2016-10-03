@@ -1,3 +1,4 @@
+require 'mime-types'  
 require "ostruct"
 require "yaml"
 
