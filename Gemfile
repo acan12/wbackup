@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -36,6 +36,7 @@ gem "devise"
 gem "recaptcha", require: "recaptcha/rails"
 gem "slim-rails"
 gem 'react-rails', '~> 1.6.0'
+gem 'diffy'
 
 group :test do 
   gem 'pry'

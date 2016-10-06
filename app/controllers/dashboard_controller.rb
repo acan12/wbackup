@@ -29,6 +29,17 @@ class DashboardController < ApplicationController
       end
     }.compact.sort_by {|k,v| v }.reverse
     
+    @backup_profiles = current_user.backups
+    
   end
+  
+  def create
+    profile_name = params[:profile_name]
+    backup = Backup.create(name: profile_name, user_id: current_user.id)
+    
+    redirect_to root_path(profile: backup.id)
+  end
+  
+  
   
 end

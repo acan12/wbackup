@@ -4,7 +4,7 @@ class BackupController < ApplicationController
   
   
   def create
-    src     = params[:path]
+    src = params[:path]
     
     dst = AppConfig::backup_destination_path + backup_filename(1)
     FileUtils.mkdir_p(dst)

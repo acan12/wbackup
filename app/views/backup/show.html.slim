@@ -8,11 +8,11 @@
         .panel-body
           .row
 
-            .col-6.pull-right style="width: 150px;"
+            .col-6.pull-right style="width: 200px;"
               = form_tag("/backup") do
                 = hidden_field_tag 'path', ""
-                = submit_tag "Restore Your files", class: "btn btn-warning"
-              = render "layouts/partial/dropdown_profiles"
+                = submit_tag "Restore Your Backup", class: "btn btn-warning"
+              / = render "layouts/partial/dropdown_profiles"
 
           .tabbable-panel
             .content

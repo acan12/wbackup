@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include LocalAssetsPipeline
   
   def current_profile
-    "TEST_PROFILE" #unless params[:profile].present?
+    "DUMMY_PROFILE" unless params[:profile].present?
   end
   
   def configure_permitted_parameters
@@ -13,32 +13,31 @@ class ApplicationController < ActionController::Base
   end
   
   def backup_filename(version)
-    # "WB_{profile_name}_{yyyymmddHHMM}_v{version}" 
+    # "WB__{profile_name}__v{version}" 
     return AppConfig::backup_name_pattern
       .gsub(/{uid}/i, current_user.id.to_s)
       .gsub(/{profile_name}/i, current_profile)
-      .gsub(/{yyyymmddHHMM}/i, DateTime.now.strftime("%Y%m%d%H%M"))
       .gsub(/{version}/i, version.to_s)
   end
   
   protected
   
   def get_backup_profile(filename)
-    filename.split(/_/i)[2]
+    filename.split(/__/i)[2]
   end
   
   def is_current_user_owner?(filename)
-    uid = filename.split(/_/i)[1].scan(/\d+/i)[0].to_i
+    uid = filename.split(/__/i)[1].scan(/\d+/i)[0].to_i
     return current_user.id.eql?(uid)
   end
   
   def get_backup_version(filename)
-    vno = filename.split(/_/i)[4].scan(/\d+/i)[0]
+    vno = filename.split(/__/i)[4].scan(/\d+/i)[0]
     return vno
   end
   
   def get_backup_created(filename)
-    date = filename.split(/_/i)[3]
+    date = filename.split(/__/i)[3]
     DateTime.parse(date)
   end
 end

@@ -5,7 +5,7 @@ GIT
     database_cleaner (1.5.3)
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actioncable (5.0.0.1)
       actionpack (= 5.0.0.1)
@@ -69,6 +69,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    diffy (3.1.0)
     erubis (2.7.0)
     execjs (2.7.0)
     factory_girl (4.7.0)
@@ -226,6 +227,7 @@ DEPENDENCIES
   byebug
   database_cleaner!
   devise
+  diffy
   factory_girl_rails
   faker
   jquery-rails

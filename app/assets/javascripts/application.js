@@ -13,4 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require_tree .
+
+
+//= require react
+//= require react_ujs
+
+// Custom Javascript
+//= require app/application_init

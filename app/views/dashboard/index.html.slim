@@ -1,4 +1,4 @@
-.container
+#container path="#{params[:p]}"
   .row
     .col-md-11
       .panel.panel-default.panel-table
@@ -7,9 +7,32 @@
 
         .panel-body
           .row
-            .col.col-xs-6.text-left
-              button.btn.btn-sm.btn-primary.btn-create type="button"  Create New Backup
-            .col-6.pull-right style="width: 150px;"
+            .col.col-xs-7.text-left
+              
+
+              /! Collect the nav links, forms, and other content for toggling             
+              p Backup Profile Names: 
+              = select_tag "profiles", options_from_collection_for_select(@backup_profiles, "id", "name", params[:profile]), {"data-style": "btn-warning", class: "selectpicker show-menu-arrow", prompt: " - "}
+              | &nbsp;&nbsp;
+              button.btn.btn-primary type="button" data-toggle="modal" data-target=".bd-example-modal-sm" Create New
+              
+              .modal.fade.bd-example-modal-sm aria-hidden="true" aria-labelledby="mySmallModalLabel" role="dialog" tabindex="-1" 
+                .modal-dialog.modal-sm
+                  .modal-content
+                    = form_tag(dashboard_index_path, {class: "form-create"}) do
+                      h3.form-signin-heading New Profile  
+                      = text_field_tag 'profile_name', "", {class: "form-control", placeholder: "Your Backup Profile name", required: ""}
+                      br
+                      = submit_tag "Submit", class: "btn btn-primary btn-block"
+                    
+              
+              
+                                    
+            .col-6.pull-right style="width: 150px;"              
+
+              
+              
+              
               = render "layouts/partial/dropdown_profiles"
 
           .tabbable-panel
@@ -31,6 +54,6 @@
                 #tab_default_2.tab-pane
                   = render "dashboard/tabchart_panel"
                 #tab_default_3.tab-pane
-                  = render "dashboard/tabbackup_panel"                  
+                  = render "dashboard/tabbackup_panel"
 
           
