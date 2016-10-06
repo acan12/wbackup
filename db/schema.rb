@@ -15,7 +15,8 @@ ActiveRecord::Schema.define(version: 20161004182756) do
   create_table "backups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "status"
-    t.string   "path"
+    t.string   "path_draft"
+    t.string   "path_backup"
     t.integer  "duration"
     t.datetime "start_process"
     t.datetime "end_process"

@@ -12,7 +12,7 @@
 
               /! Collect the nav links, forms, and other content for toggling             
               p Backup Profile Names: 
-              = select_tag "profiles", options_from_collection_for_select(@backup_profiles, "id", "name", params[:profile]), {"data-style": "btn-warning", class: "selectpicker show-menu-arrow", prompt: " - "}
+              = select_tag "profiles", options_from_collection_for_select(@backup_profiles, "id", "name", params[:b]), {"data-style": "btn-warning", class: "selectpicker show-menu-arrow", prompt: " - "}
               | &nbsp;&nbsp;
               button.btn.btn-primary type="button" data-toggle="modal" data-target=".bd-example-modal-sm" Create New
               

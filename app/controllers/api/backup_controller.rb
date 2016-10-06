@@ -4,12 +4,14 @@ class Api::BackupController < ApplicationController
   
   # update path_include or path_exclude
   def update
-    dotype = params[:type]
+    do_backup = params[:do]
     path = params[:path]
     
     backup = Backup.find_by_id(params[:id])
+
     if(backup.present?)
-      if(dotype == "in")
+
+      if(do_backup.to_bool)
         backup.update_path_include(path)  # for include path
       else
         backup.update_path_exclude(path)  # for exclude path
@@ -23,6 +25,7 @@ class Api::BackupController < ApplicationController
   
   def show 
     backup = Backup.find_by_id(params[:id])
-    render json: {path: backup.path_contents}, status: 200
+    json = backup.path_draft_contents.map{|f| {dirtype: File.directory?(f), path: f}}
+    render json: json, status: 200
   end
 end

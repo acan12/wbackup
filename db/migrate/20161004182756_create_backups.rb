@@ -3,7 +3,8 @@ class CreateBackups < ActiveRecord::Migration[5.0]
     create_table :backups do |t|
       t.string :name
       t.string :status # draft / backup / restore
-      t.string :path
+      t.string :path_draft
+      t.string :path_backup      
       t.integer :duration
       t.datetime :start_process
       t.datetime :end_process

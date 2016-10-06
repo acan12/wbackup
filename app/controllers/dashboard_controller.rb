@@ -5,9 +5,12 @@ class DashboardController < ApplicationController
   
   
   def index
+    backup = Backup.find_by_id(params[:b])
     @data = Dir.glob("#{current_path}/*").map{|f| 
         unless filedirname(f).eql?(AppConfig::backup_root_name)
-          { path: f,
+          { 
+            active: (backup.present? && backup.path_draft_contents.include?(f)) ? "active" : "",
+            path: f,
             name: filedirname(f), 
             dirtype: File.directory?(f),
             ctime: File.lstat(f).ctime,
@@ -37,7 +40,7 @@ class DashboardController < ApplicationController
     profile_name = params[:profile_name]
     backup = Backup.create(name: profile_name, user_id: current_user.id)
     
-    redirect_to root_path(profile: backup.id)
+    redirect_to root_path(b: backup.id)
   end
   
   

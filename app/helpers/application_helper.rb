@@ -4,6 +4,10 @@ module ApplicationHelper
     params[:p] ||= ""
   end
   
+  def current_profile
+    params[:b] ||= ""
+  end
+  
   def filedirname(w)
     w.split("/").last
   end

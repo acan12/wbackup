@@ -3,48 +3,17 @@
   | Path
   | &nbsp;&nbsp;
   - fname_path = []
-  = link_to "", "/", {class: "glyphicon glyphicon-home"}
+  = link_to "", "?b=#{params[:b]}", {class: "glyphicon glyphicon-home"}
   - current_path.split("/").delete_if(&:empty?).each do |fname|
     - fname_path << fname
-    = link_to " /"+fname, "?p=/#{fname_path.join("/")}", {style: "cursor: pointer"}
+    = link_to " /"+fname, "?p=/#{fname_path.join("/")}&b=#{params[:b]}", {style: "cursor: pointer"}
   button.pull-right.btn.btn-success type="button" data-toggle="modal" data-target=".confirm-backup-modal-lg" Backup Now  
   .modal.fade.confirm-backup-modal-lg aria-hidden="true" aria-labelledby="mySmallModalLabel" role="dialog" tabindex="-1" 
     .modal-dialog
       .modal-content
-        = render "dashboard/tabbackup_panel"
-        button.btn.btn-primary type="button" Process
+        = render "dashboard/panel_draft_confirm"
+        
   br
   br  
   #rowDirectoryFileBox
-  / table.table.table-striped.table-bordered.table-list
-  /   thead
-  /     tr
-  /       th
-  /         em.fa.fa-cog
-  /       th.hidden-xs Name
-  /       th Mime/Type
-  /       th Size                
-  /       th Change
-  /       th Modified                
-  /       th Permission
-  /       th Backup
-  /   tbody#rowDirectoryFileBox
-      / - @data.each do |d|
-      /   tr
-      /     td.hidden-xs= image_tag (d[:dirtype] ? "folder-icon" : "document-icon")
-      /     td= link_to d[:name], "?p=#{d[:path]}"
-      /     td= d[:mtype]
-      /     td= d[:size]
-      /     td= d[:ctime]
-      /     td= d[:mtime]                  
-      /     td= d[:permission]
-      /     td align="center" 
-      /       .btn-group data-toggle="buttons"
-      /         label.btn.btn-success
-      /           input autocomplete="off" checked="" type="checkbox"
-      /           span.glyphicon.glyphicon-ok
-                
 
-            / = form_tag("/backup") do
-            /   = hidden_field_tag 'path', d[:path]
-            /   = submit_tag "B", class: "btn btn-success"

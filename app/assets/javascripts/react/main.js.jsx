@@ -16,3 +16,10 @@ var rowDirectoryFileBox = function () {
   );
 };
 
+var rowBackupDraftConfirmBox = function () {
+  ReactDOM.render(
+    <RowBackupDraftConfirmBox url="/api/backup" pollInterval="1000" />,
+    document.getElementById('rowBackupDraftConfirmBox')
+  );
+}
+

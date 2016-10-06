@@ -1,4 +1,4 @@
-var RowDirectoryFileBox = React.createClass({
+var RowBackupDraftConfirmBox = React.createClass({
   getInitialState: function () {
     return { rows_directories_files: [] }
   },
@@ -9,12 +9,10 @@ var RowDirectoryFileBox = React.createClass({
   loadDatasFromServer: function (query) {
 
     var url = this.props.url;
-    var path  = $("#container").attr("path");
     var backupId = $('#profiles').val();
     
     $.ajax({
-      url: url,
-      data: { path: path, b: backupId },
+      url: url+"/"+backupId,
       type: "GET",
       success: function (data) {
 
@@ -28,13 +26,9 @@ var RowDirectoryFileBox = React.createClass({
 
   },
   
-  handleClick: function(e){
-    e.preventDefault();
-    // var keyword = $("#searchBox").val();
-    // this.loadCommentsFromServer(keyword); // reload box component
-  },
-
   render: function () {    
+    var row = this.state.rows_directories_files;
+    console.log(row)
     return (
       <div>
         <table className="table table-striped table-bordered table-list">
@@ -42,17 +36,11 @@ var RowDirectoryFileBox = React.createClass({
             <tr>
               <th><em className="fa fa-cog"></em></th>
               <th className="hidden-xs">Name</th>
-              <th>Mime/Type</th>
-              <th>Size</th>
-              <th>Change</th>
-              <th>Modified</th>
-              <th>Permission</th>
-              <th>Backup</th>
             </tr>
           </thead>
           <tbody>
             {this.state.rows_directories_files.map(function(item){
-              return (<RowDirectoryFileItemBox item={item}/>)
+              return (<RowBackupDraftConfirmItemBox item={item}/>)
             })}
           </tbody>
         </table>
