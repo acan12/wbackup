@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161004182756) do
+ActiveRecord::Schema.define(version: 20161007141027) do
+
+  create_table "archieves", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "backup_file_name"
+    t.string   "path"
+    t.datetime "start_process"
+    t.datetime "end_process"
+    t.integer  "version",                default: 0, null: false
+    t.integer  "stat_total_size"
+    t.string   "stat_top_files_changed"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
 
   create_table "backups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -20,9 +32,11 @@ ActiveRecord::Schema.define(version: 20161004182756) do
     t.integer  "duration"
     t.datetime "start_process"
     t.datetime "end_process"
-    t.integer  "last_version"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "latest_version",         default: 0, null: false
+    t.integer  "stat_total_size"
+    t.string   "stat_top_files_changed"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "user_id"
     t.index ["user_id"], name: "index_backups_on_user_id", using: :btree
   end

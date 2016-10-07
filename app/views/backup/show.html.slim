@@ -3,16 +3,15 @@
     .col-md-11
       .panel.panel-default.panel-table
         .panel-heading
-            h3= "Test Backup"
+            h3= "Backup [#{@backup.name}]"
 
         .panel-body
           .row
 
             .col-6.pull-right style="width: 200px;"
-              = form_tag("/backup") do
-                = hidden_field_tag 'path', ""
+              = form_tag(backup_restore_path) do
+                = hidden_field_tag 'backupid', @backup.id
                 = submit_tag "Restore Your Backup", class: "btn btn-warning"
-              / = render "layouts/partial/dropdown_profiles"
 
           .tabbable-panel
             .content

@@ -25,7 +25,7 @@ class Api::BackupController < ApplicationController
   
   def show 
     backup = Backup.find_by_id(params[:id])
-    json = backup.path_draft_contents.map{|f| {dirtype: File.directory?(f), path: f}}
+    json = backup.path_draft_contents.map{|f| {backup_id: backup.id, dirtype: File.directory?(f), path: f}}
     render json: json, status: 200
   end
 end

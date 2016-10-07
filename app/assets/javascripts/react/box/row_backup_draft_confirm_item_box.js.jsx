@@ -7,7 +7,8 @@ var RowBackupDraftConfirmItemBox = React.createClass({
           <td className="hidden-xs">
             <img src={icon} />
           </td>
-          <td>{row.path}</td>
+          <td>
+            <a href={"?p="+row.path+"&b="+row.backup_id}>{row.path}</a></td>
         </tr>
     )
   }

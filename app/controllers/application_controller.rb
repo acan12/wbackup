@@ -5,19 +5,24 @@ class ApplicationController < ActionController::Base
   include LocalAssetsPipeline
   
   def current_profile
-    "DUMMY_PROFILE" unless params[:profile].present?
+    session[:current_profile] ||= params[:profile]
   end
   
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
   end
   
-  def backup_filename(version)
+  def backup_filename(backup_id, profile)
     # "WB__{profile_name}__v{version}" 
     return AppConfig::backup_name_pattern
+      .gsub(/{bid}/i, backup_id.to_s)
       .gsub(/{uid}/i, current_user.id.to_s)
-      .gsub(/{profile_name}/i, current_profile)
-      .gsub(/{version}/i, version.to_s)
+      .gsub(/{profile_name}/i, profile)
+  end
+  
+  def backup_filename_with_version(backup_filename, version)
+    # "WB__{profile_name}__v{version}" 
+    return backup_filename+"__"+version.to_s
   end
   
   protected
@@ -32,12 +37,12 @@ class ApplicationController < ActionController::Base
   end
   
   def get_backup_version(filename)
-    vno = filename.split(/__/i)[4].scan(/\d+/i)[0]
+    vno = filename.split(/__/i)[3].scan(/\d+/i)[0]
     return vno
   end
   
-  def get_backup_created(filename)
-    date = filename.split(/__/i)[3]
-    DateTime.parse(date)
+  def get_backup_id_from_filename(filename)
+    return filename.split(/__/i)[0].split(/[a-z]/i).last
   end
+  
 end

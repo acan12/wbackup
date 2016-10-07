@@ -5,7 +5,7 @@ common: &common_settings
 development: &development_settings
   backup_root_name: "Wbox"
   backup_destination_path: "/Wbox/"
-  backup_name_pattern: "WB_u{uid}_{profile_name}_v{version}" 
+  backup_name_pattern: "WB{bid}__u{uid}__{profile_name}" 
 
 
 test: &test_settings

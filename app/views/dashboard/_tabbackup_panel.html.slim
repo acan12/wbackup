@@ -15,10 +15,10 @@
       - @backup.each do |b|
         tr
           td.hidden-xs= image_tag "backup-icon"
-          td= link_to b[:name], backup_path(id: 0, p: b[:path])
+          td= link_to b[:name], backup_path(id: 0, p: b[:path], b: b[:id])
           td= b[:size]
           td= b[:mtime]
           td style="text-align: right;"= b[:version]
-          td= DateTime.now
-          td= DateTime.now + 2.hour
+          td= b[:start]
+          td= b[:end]
 

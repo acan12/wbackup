@@ -45,6 +45,7 @@ var RowDirectoryFileItemBox = React.createClass({
           <td>{row.size}</td>
           <td>{row.mtime}</td>
           <td>{row.atime}</td>
+          <td>{row.btime}</td>          
           <td>{row.permission}</td>
           <td align="center">
             <div className="btn-group" data-toggle="buttons" onClick={this.handleClick} >

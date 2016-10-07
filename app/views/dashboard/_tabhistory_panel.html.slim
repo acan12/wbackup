@@ -9,7 +9,8 @@
         th Mime/Type
         th Size                
         th Change
-        th Modified                
+        th Modified   
+        th Created             
         th Permission
         th Version
         th Status        
@@ -22,10 +23,11 @@
           td= d[:mtype]
           td= d[:size]
           td= d[:ctime]
-          td= d[:mtime]                  
+          td= d[:mtime]     
+          td= d[:btime]                            
           td= d[:permission]
-          td= "1.1.0"
-          td New / Changed
+          td= d[:version]
+          td= d[:status].humanize
           td align="center" 
             = link_to "Track", track_path(1), class: "btn btn-default"
             

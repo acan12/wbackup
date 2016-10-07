@@ -1,16 +1,13 @@
-.content style="margin: 20px;"
-  .row
-    .col-md-12
-      br
-      table.table.table-striped.table-bordered.table-list
-        thead
-          tr
-            th
-              em.fa.fa-cog
-            th.hidden-xs Profile
-        tbody#rowBackupDraftConfirm
-        
-
-  .row
-    .col-md-12
-      button.btn.btn-primary type="button" Process
+#rowBackupDraftConfirmBox
+  / button.pull-right.btn.btn-success type="button" data-toggle="modal" data-target=".confirm-backup-modal-lg" Backup Now  
+  / .modal.fade.confirm-backup-modal-lg aria-hidden="true" aria-labelledby="mySmallModalLabel" role="dialog" tabindex="-1" 
+  /   .modal-dialog
+  /     .modal-content
+  /       .content style="margin: 20px;"
+  /         .row
+  /           .col-md-12
+  /             br
+  /             
+  /         .row
+  /           .col-md-12
+  /             button.btn.btn-primary type="button" Continue Process Backup

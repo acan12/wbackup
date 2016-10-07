@@ -12,7 +12,8 @@ class Api::FilesController < ApplicationController
             dirtype: File.directory?(f),
             ctime: File.lstat(f).ctime,
             mtime: File.lstat(f).mtime,
-            atime: File.lstat(f).atime,                    
+            atime: File.lstat(f).atime,    
+            btime: File.lstat(f).birthtime,                             
             size: File.lstat(f).size,
             mtype: (  File.directory?(f) && MIME::Types.type_for(filedirname(f)).blank? ) ? "-" : MIME::Types.type_for(filedirname(f)).try(:first).try(:content_type),
             permission: (File.lstat(f).mode & 0777) } 

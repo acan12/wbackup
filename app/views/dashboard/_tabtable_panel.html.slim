@@ -7,11 +7,7 @@
   - current_path.split("/").delete_if(&:empty?).each do |fname|
     - fname_path << fname
     = link_to " /"+fname, "?p=/#{fname_path.join("/")}&b=#{params[:b]}", {style: "cursor: pointer"}
-  button.pull-right.btn.btn-success type="button" data-toggle="modal" data-target=".confirm-backup-modal-lg" Backup Now  
-  .modal.fade.confirm-backup-modal-lg aria-hidden="true" aria-labelledby="mySmallModalLabel" role="dialog" tabindex="-1" 
-    .modal-dialog
-      .modal-content
-        = render "dashboard/panel_draft_confirm"
+  = render "dashboard/panel_draft_confirm"
         
   br
   br  

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :backup, only: [:create, :show]
   resources :track, only: [:show]  
   
+  match 'backup/restore',  to: 'backup#restore',    via: :post
+  
   namespace :api do
     resources :files, only: [:index]
     resources :backup, only: [:update, :show]

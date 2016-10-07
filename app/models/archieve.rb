@@ -1,0 +1,3 @@
+class Archieve < ApplicationRecord
+  
+end

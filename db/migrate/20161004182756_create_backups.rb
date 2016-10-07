@@ -8,7 +8,9 @@ class CreateBackups < ActiveRecord::Migration[5.0]
       t.integer :duration
       t.datetime :start_process
       t.datetime :end_process
-      t.integer :last_version
+      t.integer :latest_version, default: 0, null: false
+      t.integer :stat_total_size
+      t.string :stat_top_files_changed
             
       t.timestamps null: false
       

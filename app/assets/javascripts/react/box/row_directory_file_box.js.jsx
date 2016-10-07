@@ -46,6 +46,7 @@ var RowDirectoryFileBox = React.createClass({
               <th>Size</th>
               <th>Change</th>
               <th>Modified</th>
+              <th>Created</th>              
               <th>Permission</th>
               <th>Backup</th>
             </tr>
