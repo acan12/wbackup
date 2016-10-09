@@ -3,7 +3,7 @@ class DashboardController < ApplicationController
   set_local_assets_pipeline! jss: true, css: true
   before_action :authenticate_user!, only: [:index]
   
-  
+  # browse your files directory
   def index
     backup = Backup.find_by_id(params[:b])
     @data = Dir.glob("#{current_path}/*").map{|f| 
@@ -23,7 +23,7 @@ class DashboardController < ApplicationController
           end
       }.compact.sort_by {|k,v| v }.reverse 
       
-    @backup = Dir.glob("#{AppConfig::backup_destination_path}/*").map{|f| 
+    @backup = Dir.glob("#{AppConfig::backup_destination_path}*").map{|f| 
       if is_current_user_owner?(filedirname(f))
           { id: get_backup_id_from_filename(f),
             path: f,
@@ -40,6 +40,7 @@ class DashboardController < ApplicationController
     
   end
   
+  # create your backup profile or name
   def create
     profile_name = params[:profile_name]
     backup = Backup.create(name: profile_name, user_id: current_user.id)

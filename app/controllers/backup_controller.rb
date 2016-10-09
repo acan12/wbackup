@@ -4,7 +4,7 @@ class BackupController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
   
   
-  
+  # create backup
   def create
     bid = params[:backupid]
     backup = Backup.find(bid)
@@ -16,6 +16,7 @@ class BackupController < ApplicationController
     redirect_to backup_path(id: 0, p: destination, b: bid, v: backup.version)
   end
   
+  # restore from backup to original path
   def restore
     bid = params[:backupid]
     version = params[:version]    
@@ -29,6 +30,7 @@ class BackupController < ApplicationController
     redirect_to root_path
   end
   
+  # browsing files in backup
   def show
     @backup = Backup.find(params[:b])
     @data = Dir.glob("#{params[:p]}/*").map{|f| 

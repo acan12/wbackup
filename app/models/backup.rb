@@ -96,7 +96,6 @@ class Backup < ApplicationRecord
           arc.version
         end
       }.compact
-      p "array:"+array.to_s
       
       # updated data path and version from archieve to backup , make sure backup get the latest version of archieve
       path_backup = archieves.where(version: array.sort.last).last.path

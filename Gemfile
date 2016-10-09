@@ -38,6 +38,9 @@ gem "slim-rails"
 gem 'react-rails', '~> 1.6.0'
 gem 'diffy'
 
+
+
+
 group :test do 
   gem 'pry'
   gem 'rspec-rails'
