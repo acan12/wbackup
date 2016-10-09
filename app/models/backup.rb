@@ -1,7 +1,6 @@
 class Backup < ApplicationRecord
   belongs_to :user
   
-  validates_uniqueness_of :name
   
   attr_accessor :path_draft_contents
   attr_accessor :path_backup_contents  
@@ -12,7 +11,7 @@ class Backup < ApplicationRecord
   
   def update_path_exclude(path)
   
-    paths = path_draft_contents - [path]
+    paths = path_draft_contentss - [path]
     self.update(path_draft: paths.join("__"))
   end
   
@@ -28,27 +27,33 @@ class Backup < ApplicationRecord
   
 ## static methods
   
+  # everytime do backup always updated the backup and create archieve 
   def self.doBackup(backup, backup_file_name, backup_file_name_with_version)
     dst = AppConfig::backup_destination_path + backup_file_name_with_version
     FileUtils.mkdir_p(dst)
     
     start = DateTime.now
     backup.path_draft_contents.each do |f|
-      FileUtils.cp_r(Dir.glob("#{f}*"), dst)
+      dirfile = File.directory?(f) ? f+"/" : f
+      FileUtils.cp_r(Dir.glob("#{dirfile}"), dst)
     end
+    path = backup.path_draft_contents.join("__")
     backup.update(
+        backup_file_name: backup_file_name,
         path_draft: "", 
         path_backup: backup.path_draft_contents.join("__"), 
-        latest_version: backup.latest_version+1,
+        version: backup.version+1,
         start_process: start,
         end_process: DateTime.now)
         
+        
     Archieve.create(
+              name: backup.name,
               backup_file_name: backup_file_name, 
-              path: backup.path_backup,
+              path: path,
               start_process: backup.start_process,
               end_process: backup.end_process,
-              version: backup.latest_version, 
+              version: backup.version, 
               stat_total_size: backup.stat_total_size,
               stat_top_files_changed: backup.stat_top_files_changed)
         
@@ -57,33 +62,48 @@ class Backup < ApplicationRecord
   
   
   
-  def self.doRestore(backup, backup_file_name, backup_file_name_with_version)
+  def self.doRestore(backup, backup_file_name, backup_file_name_with_version, version)
     
     src = AppConfig::backup_destination_path + backup_file_name_with_version
     # /Wbox/WB2__u1__B2016__v1/
-    # /Users/arysuryawan/weka.log
     backup_files = Dir.glob("#{src}/*")
-    backup.path_backup_contents.each do |o|
+    
+    # mechanism when restoring all backup to original path
+    archieve = Archieve.find_by(backup_file_name: backup.backup_file_name, version: version)
+    archieve.path_archieve_contents.each do |o|
       
       file = backup_files.map{|x| 
         x if File.basename(x) == File.basename(o)
       }.compact.last
-      
+
       target = File.directory?(File.dirname(o)) ? File.dirname(o) : File.dirname(o)
+
       FileUtils.cp_r(file, target)
     end
-    
-    version = backup.latest_version
-    if version == 1
+
+    # mechanism archieving when restore the backup
+    archieves = Archieve.where(backup_file_name: backup_file_name)
+    if archieves.size == 1 # if just only 1 , backup + archieve will delete  
       backup.delete  # delete backup after restore done
-      Archieve.find_by(backup_file_name: backup_file_name, version: version).delete
-    else
-      Archieve.find_by(backup_file_name: backup_file_name, version: version).delete
-      backup.update(latest_version: backup.latest_version - 1)
+      archieves.find_by_version(version).delete
+      
+    elsif archieves.size > 1 # archieve with version restore will deleted and get latest version of archieve
+      array = archieves.map{|arc| 
+        if arc.version.to_s == version
+          arc.delete 
+          nil
+        else
+          arc.version
+        end
+      }.compact
+      p "array:"+array.to_s
+      
+      # updated data path and version from archieve to backup , make sure backup get the latest version of archieve
+      path_backup = archieves.where(version: array.sort.last).last.path
+      backup.update(path_backup: path_backup, version: array.sort.last)
     end
     
-
-
+    # remove backup files from backup root path
     FileUtils.rm_rf(src)
   end
 end

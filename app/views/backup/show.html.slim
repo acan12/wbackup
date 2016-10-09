@@ -3,14 +3,27 @@
     .col-md-11
       .panel.panel-default.panel-table
         .panel-heading
-            h3= "Backup [#{@backup.name}]"
+            h3= "Backup [#{@backup.name}] in Version #{params[:v]}"
 
         .panel-body
           .row
+            .col-md-6
+              | Path
+              | &nbsp;&nbsp;
+              - paths = current_path.split("/").compact.delete_if(&:empty?)
+              - fname_path = []
+              - extra_info = "&b=#{params[:b]}&v=#{params[:v]}"
+              
+              = link_to "", "?p=/#{[paths[0], paths[1]].join("/")}#{extra_info}", {class: "glyphicon glyphicon-home"}
+              - paths.each_with_index do |fname, i|
+                - fname_path << fname
+                - next if [0,1].include?(i)
+                = link_to " /"+fname, "?p=/#{fname_path.join("/")}#{extra_info}", {style: "cursor: pointer"}
 
-            .col-6.pull-right style="width: 200px;"
+            .col-md-6.pull-right style="width: 200px;"
               = form_tag(backup_restore_path) do
                 = hidden_field_tag 'backupid', @backup.id
+                = hidden_field_tag 'version', params[:v]
                 = submit_tag "Restore Your Backup", class: "btn btn-warning"
 
           .tabbable-panel

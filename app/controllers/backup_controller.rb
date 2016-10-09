@@ -9,20 +9,22 @@ class BackupController < ApplicationController
     bid = params[:backupid]
     backup = Backup.find(bid)
     filename = backup_filename(backup.id, backup.name)
-    filename_with_version = backup_filename_with_version(filename, backup.latest_version + 1)
+    filename_with_version = backup_filename_with_version(filename, backup.version + 1)
     
     destination = Backup.doBackup(backup, filename, filename_with_version)
     
-    redirect_to backup_path(id: 0, p: destination, b: bid)
+    redirect_to backup_path(id: 0, p: destination, b: bid, v: backup.version)
   end
   
   def restore
     bid = params[:backupid]
+    version = params[:version]    
     backup = Backup.find(bid)
     
     filename = backup_filename(backup.id, backup.name)
-    filename_with_version = backup_filename_with_version(filename, backup.latest_version)
-    Backup.doRestore(backup, filename, filename_with_version)
+    filename_with_version = backup_filename_with_version(filename, version)
+
+    Backup.doRestore(backup, filename, filename_with_version, version)
     
     redirect_to root_path
   end
@@ -30,7 +32,8 @@ class BackupController < ApplicationController
   def show
     @backup = Backup.find(params[:b])
     @data = Dir.glob("#{params[:p]}/*").map{|f| 
-        { path: f,
+        { id: @backup.id,
+          path: f,
           name: filedirname(f), 
           dirtype: File.directory?(f),
           ctime: File.lstat(f).ctime,
@@ -41,7 +44,7 @@ class BackupController < ApplicationController
           status: File.lstat(f).birthtime.eql?(File.lstat(f).mtime) ? 'new' : 'changed',
           mtype: (  File.directory?(f) && MIME::Types.type_for(filedirname(f)).blank? ) ? "-" : MIME::Types.type_for(filedirname(f)).try(:first).try(:content_type),
           permission: (File.lstat(f).mode & 0777),
-          version: @backup.latest_version } 
+          version: params[:v] } 
       }.sort_by {|k,v| v }.reverse
   end
 end

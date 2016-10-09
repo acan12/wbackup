@@ -35,6 +35,7 @@ var RowBackupDraftConfirmBox = React.createClass({
     var backupId = $('#profiles').val();
     var style1 = { "display": "none"}
     var style2 = { "margin": "20px"}
+    var toDisabled = (row.length == 0) ? "disabled" : ""
     console.log(row)
     return (
       <div>
@@ -69,7 +70,9 @@ var RowBackupDraftConfirmBox = React.createClass({
                   <div className="col-md-12">
                     <form action="/backup" method="post">
                       <input id="backupid" name="backupid" type="hidden" value={backupId} />
-                      <input name="submit_backup" type="submit" value="Continue Backup Process" className="btn btn-primary" />
+
+                        <input name="submit_backup" type="submit" value="Continue Backup Process" className={"btn btn-primary "+toDisabled} disabled={toDisabled == "disabled"} />
+
                     </form>
                   </div>
                 </div>

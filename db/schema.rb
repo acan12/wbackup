@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 20161007141027) do
 
   create_table "archieves", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
     t.string   "backup_file_name"
     t.string   "path"
     t.datetime "start_process"
@@ -26,13 +27,12 @@ ActiveRecord::Schema.define(version: 20161007141027) do
 
   create_table "backups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.string   "status"
+    t.string   "backup_file_name"
     t.string   "path_draft"
     t.string   "path_backup"
-    t.integer  "duration"
     t.datetime "start_process"
     t.datetime "end_process"
-    t.integer  "latest_version",         default: 0, null: false
+    t.integer  "version",                default: 0, null: false
     t.integer  "stat_total_size"
     t.string   "stat_top_files_changed"
     t.datetime "created_at",                         null: false

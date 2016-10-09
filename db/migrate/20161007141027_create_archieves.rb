@@ -1,6 +1,7 @@
 class CreateArchieves < ActiveRecord::Migration[5.0]
   def change
     create_table :archieves do |t|
+      t.string :name
       t.string :backup_file_name
       t.string :path
       t.datetime :start_process

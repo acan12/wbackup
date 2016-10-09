@@ -19,7 +19,7 @@
       - @data.each do |d|
         tr
           td.hidden-xs= image_tag (d[:dirtype] ? "folder-icon" : "document-icon")
-          td= link_to d[:name], "?p=#{d[:path]}"
+          td= link_to d[:name], "?p=#{d[:path]}&b=#{d[:id]}&v=#{d[:version]}"
           td= d[:mtype]
           td= d[:size]
           td= d[:ctime]

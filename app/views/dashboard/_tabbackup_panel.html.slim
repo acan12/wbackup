@@ -8,14 +8,14 @@
         th.hidden-xs Profile
         th Size
         th Last Updated
-        th Last Version
+        th Version
         th Start Backup
         th End Backup
     tbody
       - @backup.each do |b|
         tr
           td.hidden-xs= image_tag "backup-icon"
-          td= link_to b[:name], backup_path(id: 0, p: b[:path], b: b[:id])
+          td= link_to b[:name], backup_path(id: 0, p: b[:path], b: b[:id], v: b[:version])
           td= b[:size]
           td= b[:mtime]
           td style="text-align: right;"= b[:version]

@@ -5,23 +5,23 @@ class DashboardController < ApplicationController
   
   
   def index
-    # backup = Backup.find_by_id(params[:b])
-    # @data = Dir.glob("#{current_path}/*").map{|f| 
-    #     unless filedirname(f).eql?(AppConfig::backup_root_name)
-    #       { 
-    #         active: (backup.present? && backup.path_draft_contents.include?(f)) ? "active" : "",
-    #         path: f,
-    #         name: filedirname(f), 
-    #         dirtype: File.directory?(f),
-    #         ctime: File.lstat(f).ctime,
-    #         mtime: File.lstat(f).mtime,
-    #         atime: File.lstat(f).atime,       
-    #         btime: File.lstat(f).birthtime,             
-    #         size: File.lstat(f).size,
-    #         mtype: (  File.directory?(f) && MIME::Types.type_for(filedirname(f)).blank? ) ? "-" : MIME::Types.type_for(filedirname(f)).try(:first).try(:content_type),
-    #         permission: (File.lstat(f).mode & 0777) } 
-    #       end
-    #   }.compact.sort_by {|k,v| v }.reverse 
+    backup = Backup.find_by_id(params[:b])
+    @data = Dir.glob("#{current_path}/*").map{|f| 
+        unless filedirname(f).eql?(AppConfig::backup_root_name)
+          { 
+            active: (backup.present? && backup.path_draft_contents.include?(f)) ? "active" : "",
+            path: f,
+            name: filedirname(f), 
+            dirtype: File.directory?(f),
+            ctime: File.lstat(f).ctime,
+            mtime: File.lstat(f).mtime,
+            atime: File.lstat(f).atime,       
+            btime: File.lstat(f).birthtime,             
+            size: File.lstat(f).size,
+            mtype: (  File.directory?(f) && MIME::Types.type_for(filedirname(f)).blank? ) ? "-" : MIME::Types.type_for(filedirname(f)).try(:first).try(:content_type),
+            permission: (File.lstat(f).mode & 0777) } 
+          end
+      }.compact.sort_by {|k,v| v }.reverse 
       
     @backup = Dir.glob("#{AppConfig::backup_destination_path}/*").map{|f| 
       if is_current_user_owner?(filedirname(f))
