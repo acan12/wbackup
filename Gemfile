@@ -37,7 +37,7 @@ gem "recaptcha", require: "recaptcha/rails"
 gem "slim-rails"
 gem 'react-rails', '~> 1.6.0'
 gem 'diffy'
-
+gem "highcharts-rails"
 
 
 

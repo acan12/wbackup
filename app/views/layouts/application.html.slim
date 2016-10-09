@@ -3,10 +3,10 @@ html
   head
     title Wbackup
     = csrf_meta_tags
-
-    = stylesheet_link_tag    'application', media: 'all' 
-    = stylesheet_link_tag    "app/#{params[:controller].parameterize.underscore}/#{params[:action].parameterize.underscore}" if @css_local_pipeline
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css"
+    
+    = stylesheet_link_tag   'application', media: 'all' 
+    = stylesheet_link_tag   "app/#{params[:controller].parameterize.underscore}/#{params[:action].parameterize.underscore}" if @css_local_pipeline
+    = stylesheet_link_tag   "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css"
             
     = javascript_include_tag 'application' 
     = javascript_include_tag "app/#{params[:controller].parameterize.underscore}/#{params[:action].parameterize.underscore}" if @jss_local_pipeline    

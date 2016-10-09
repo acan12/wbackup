@@ -16,7 +16,7 @@
         tr
           td.hidden-xs= image_tag "backup-icon"
           td= link_to b[:name], backup_path(id: 0, p: b[:path], b: b[:id], v: b[:version])
-          td= b[:size]
+          td= number_to_human_size(b[:size])
           td= b[:mtime]
           td style="text-align: right;"= b[:version]
           td= b[:start]

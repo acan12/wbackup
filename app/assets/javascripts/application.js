@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 
-
+//= require highcharts
 //= require react
 //= require react_ujs
 

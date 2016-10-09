@@ -5,26 +5,26 @@ ul.nav.navbar-nav.pull-right
       | &nbsp;&nbsp;
       span.glyphicon.glyphicon-user.pull-right
     ul.dropdown-menu style="width: 220px; left: -120px"
+      / li
+      /   a href="#" 
+      /     | Account Settings
+      /     span.glyphicon.glyphicon-cog.pull-right
+      / li.divider
+      / li
+      /   a href="#" 
+      /     | User stats
+      /     span.glyphicon.glyphicon-stats.pull-right
+      / li.divider
+      / li
+      /   a href="#" 
+      /     | Messages
+      /     span.badge.pull-right 42
+      / li.divider
+      / li
+      /   a href="#" 
+      /     | Favourites Snippets
+      /     span.glyphicon.glyphicon-heart.pull-right
       li
-        a href="#" 
-          | Account Settings
-          span.glyphicon.glyphicon-cog.pull-right
-      li.divider
-      li
-        a href="#" 
-          | User stats
-          span.glyphicon.glyphicon-stats.pull-right
-      li.divider
-      li
-        a href="#" 
-          | Messages
-          span.badge.pull-right 42
-      li.divider
-      li
-        a href="#" 
-          | Favourites Snippets
-          span.glyphicon.glyphicon-heart.pull-right
-      li.divider
       - if user_signed_in?
           li
             = link_to('Sign Out', destroy_user_session_path, :method => :delete)

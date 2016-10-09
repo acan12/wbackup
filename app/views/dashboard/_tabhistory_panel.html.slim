@@ -13,7 +13,7 @@
         th Created             
         th Permission
         th Version
-        th Status        
+        th Content        
         th
     tbody
       - @data.each do |d|
@@ -22,7 +22,7 @@
           td.hidden-xs= image_tag (is_dirtype ? "folder-icon" : "document-icon")
           td= is_dirtype ? link_to(d[:name], "?p=#{d[:path]}&b=#{d[:id]}&v=#{d[:version]}") : d[:name]
           td= d[:mtype]
-          td= d[:size]
+          td= number_to_human_size(d[:size])
           td= d[:ctime]
           td= d[:mtime]     
           td= d[:btime]                            

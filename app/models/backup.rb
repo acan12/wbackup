@@ -26,6 +26,18 @@ class Backup < ApplicationRecord
   
   
 ## static methods
+
+  # counting size of directory / file
+  def self.dir_size(dir_path)
+    require 'find'
+    size = 0
+    Find.find(dir_path) { |f| 
+      size += File.size(f) if File.file?(f) 
+      break if size > 500000 #000000
+    }
+
+    size
+  end
   
   # everytime do backup always updated the backup and create archieve 
   def self.doBackup(backup, backup_file_name, backup_file_name_with_version)
@@ -105,4 +117,8 @@ class Backup < ApplicationRecord
     # remove backup files from backup root path
     FileUtils.rm_rf(src)
   end
+  
+  
+  
+  
 end
