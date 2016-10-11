@@ -17,6 +17,7 @@
 //= require highcharts
 //= require react
 //= require react_ujs
+//= require libs/jquery.ajax-progress
 
 // Custom Javascript
 //= require app/application_init

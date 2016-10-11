@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   
   namespace :api do
     resources :files, only: [:index]
-    resources :backup, only: [:update, :show]
+    resources :backup, only: [:create, :update, :show]
+    match 'stats', to: 'backup#stats', via: :get
   end
 end
 

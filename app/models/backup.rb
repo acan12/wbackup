@@ -11,7 +11,7 @@ class Backup < ApplicationRecord
   
   def update_path_exclude(path)
   
-    paths = path_draft_contentss - [path]
+    paths = path_draft_contents - [path]
     self.update(path_draft: paths.join("__"))
   end
   
@@ -38,6 +38,7 @@ class Backup < ApplicationRecord
 
     size
   end
+
   
   # everytime do backup always updated the backup and create archieve 
   def self.doBackup(backup, backup_file_name, backup_file_name_with_version)

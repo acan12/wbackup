@@ -7,9 +7,15 @@
   - current_path.split("/").delete_if(&:empty?).each do |fname|
     - fname_path << fname
     = link_to " /"+fname, "?p=/#{fname_path.join("/")}&b=#{params[:b]}", {style: "cursor: pointer"}
-  = render "dashboard/panel_draft_confirm"
-        
+  
+  
+
+  .row
+    .col-md-8
+
+      progress#progressBar.hide.progress.progress-striped.progress-animated value="0" max="100"
+    .col-md-4
+      = render "dashboard/panel_draft_confirm"
   br
-  br  
   #rowDirectoryFileBox
 

@@ -38,6 +38,8 @@ gem "slim-rails"
 gem 'react-rails', '~> 1.6.0'
 gem 'diffy'
 gem "highcharts-rails"
+gem 'free_disk_space', '~> 1.0'
+gem 'sys-filesystem'
 
 
 

@@ -11,20 +11,66 @@ var Page = {
       });
   },
   
-  loadChar: function(){
+  loadChart: function(){
       var keys = $("#chart").attr("keys");
       
       
   },
-  showChar: function(datas){
+  
+  loadBackupProcess: function(){
+      var bid = $("#profiles").val();
+      $("#progressBar").removeClass("hide");
       
+      $.ajax({
+        type: 'POST',
+        url: '/api/backup',
+        data: { bid: bid },
+        progress: function(e){
+
+            if(e.lengthComputable) {
+              var percent = (e.loaded / e.total) * 100;
+              $("#progressBar").attr('value', percent)
+              console.log("percent: "+percent)
+            }else{
+              console.warn('Content Length not reported!');
+              
+            }
+        },
+        success: function(data){
+          
+          $("#progressBar").addClass("hide")
+          
+          location.href = data.link
+        }
+      })
+      
+  },
+  
+  getStats: function(){
+      $.ajax({
+        type: 'GET',
+        url: '/api/stats',
+        success: function(data){
+            arr = []
+            for(i=0; i<data.length; i++){
+              arr[i] = {name: data[i].name, y: data[i].size }
+            }
+            
+            Page.showChart(arr)
+        },
+        error: function(e){
+            console.log('error')
+        }
+      });
+  },
+  showChart: function(data){
       
       $("#chart").highcharts({
           chart: {
               type: 'pie'
           },
           title: {
-              text: "xxxx"
+              text: "Backup"
           },
           tooltip: {
               pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -45,7 +91,7 @@ var Page = {
           series: [{
               name: 'Brands',
               colorByPoint: true,
-              data: datas
+              data: data
           }]
       });
   }
@@ -56,14 +102,8 @@ var Page = {
 
 $(function(e){ 
   Page.reload(); 
-  datas = [{ name: 'Microsoft Internet Explorer', y: 56.33}, 
-      { name: 'Chrome', y: 24.03, sliced: true, selected: true}, 
-      { name: 'Firefox', y: 10.38 }, 
-      { name: 'Safari', y: 4.77 }, 
-      { name: 'Opera', y: 0.91 }, 
-      { name: 'Proprietary or Undetectable', y: 0.2}]
-      
-  Page.showChar( datas);
+  Page.getStats();
+
 })
 
 
