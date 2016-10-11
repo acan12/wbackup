@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root :to => "dashboard#index"
   resources :dashboard, only: [:index, :create]
-  resources :backup, only: [:create, :show]
+  resources :backup, only: [:show]
   resources :track, only: [:show]  
   
   match 'backup/restore',  to: 'backup#restore',    via: :post

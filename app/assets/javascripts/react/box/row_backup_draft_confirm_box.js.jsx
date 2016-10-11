@@ -30,6 +30,12 @@ var RowBackupDraftConfirmBox = React.createClass({
     this.loadDatasFromServer();
   },
   
+  submitBackup: function(e){
+      e.preventDefault();
+      $(".modal").click() // close modal
+      Page.loadBackupProcess();
+  },
+  
   render: function () {    
     var row = this.state.rows_directories_files;
     var backupId = $('#profiles').val();
@@ -65,13 +71,12 @@ var RowBackupDraftConfirmBox = React.createClass({
                   </div>  
                 </div>
                 
-                
                 <div className="row">
                   <div className="col-md-12">
                     <form action="/backup" method="post">
                       <input id="backupid" name="backupid" type="hidden" value={backupId} />
 
-                        <input name="submit_backup" type="submit" value="Continue Backup Process" className={"btn btn-primary "+toDisabled} disabled={toDisabled == "disabled"} />
+                        <input onClick={this.submitBackup} name="submit_backup" type="submit" value="Continue Backup Process" className={"btn btn-primary "+toDisabled} disabled={toDisabled == "disabled"} />
 
                     </form>
                   </div>

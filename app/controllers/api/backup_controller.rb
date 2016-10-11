@@ -62,9 +62,4 @@ class Api::BackupController < ApplicationController
     
   end
   
-  def ftype_stats
-    path = "/Wbox/WB8__u1__B2016__5"#params[:p]
-    Backup.stats_on_file_type("#{path}/")
-  
-  end
 end

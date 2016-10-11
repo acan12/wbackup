@@ -15,7 +15,7 @@ class Api::FilesController < ApplicationController
             mtime: File.lstat(f).mtime,
             atime: File.lstat(f).atime,    
             btime: File.lstat(f).birthtime,                             
-            size: number_to_human_size(Backup.dir_size(f)),#File.lstat(f).size,
+            size: number_to_human_size(Backup.dir_size(f)),
             mtype: (  File.directory?(f) && MIME::Types.type_for(filedirname(f)).blank? ) ? "-" : MIME::Types.type_for(filedirname(f)).try(:first).try(:content_type),
             permission: (File.lstat(f).mode & 0777) } 
           end

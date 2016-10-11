@@ -13,31 +13,32 @@ var Page = {
   
   loadChart: function(){
       var keys = $("#chart").attr("keys");
-      
-      
   },
   
+  progress: function(){
+
+      $("#progressBar").removeClass("hide");
+    
+      val = $("#progressBar").attr('value')
+      counter = parseInt(val) + 1;
+      $("#progressBar").attr('value', counter);
+     if(val < 99){
+         setTimeout(function() { Page.progress(); }, 100);
+     }
+  },
   loadBackupProcess: function(){
       var bid = $("#profiles").val();
-      $("#progressBar").removeClass("hide");
+      
       
       $.ajax({
         type: 'POST',
         url: '/api/backup',
         data: { bid: bid },
         progress: function(e){
-
-            if(e.lengthComputable) {
-              var percent = (e.loaded / e.total) * 100;
-              $("#progressBar").attr('value', percent)
-              console.log("percent: "+percent)
-            }else{
-              console.warn('Content Length not reported!');
-              
-            }
+            setTimeout(Page.progress(), 3000)
         },
         success: function(data){
-          
+          console.log("done...")
           $("#progressBar").addClass("hide")
           
           location.href = data.link
